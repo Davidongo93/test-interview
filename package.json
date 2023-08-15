@@ -1,0 +1,28 @@
+{
+  "name": "test-interview",
+  "version": "1.0.0",
+  "description": "a test project for apply to a senior position",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -L index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/Davidongo93/tech-interview.git"
+  },
+  "keywords": [
+    "test",
+    "interview"
+  ],
+  "author": "Dave Miranda",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.0.1",
+    "pg": "^8.11.2",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.32.1"
+  }
+}
