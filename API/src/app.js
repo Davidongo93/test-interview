@@ -16,10 +16,9 @@ server.use(
     'Method: :method URL: :url Status: :status :response-time ms - :res[content-length] kilobytes - :date[clf].'
   )
 );
-// Setting CORS
+
 server.use((req, res, next) => {
- //res.header('Access-Control-Allow-Origin', 'https://pf-arts-client.vercel.app');
-   res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header(
     'Access-Control-Allow-Headers',
@@ -29,17 +28,15 @@ server.use((req, res, next) => {
   next();
 });
 
-// Ruta OPTIONS para manejar las solicitudes preflight
 server.options('*', (req, res) => {
   res.sendStatus(200);
 });
 
-// Routing
+
 server.use('/', routes);
 
-// Error catching endware.
 server.use((err, req, res, next) => {
-  // eslint-disable-line no-unused-vars
+
   const status = err.status || 500;
   const message = err.message || err;
   console.error(err);
