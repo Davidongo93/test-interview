@@ -1,0 +1,17 @@
+# Use an official Node runtime as the base image
+FROM node:18.17
+
+# Set the working directory
+WORKDIR /app/api
+
+# Copy package.json and package-lock.json to the container
+COPY ./API/package*.json ./
+
+# Install app dependencies
+RUN npm install
+
+# Copy the rest of the application code
+COPY ./API ./
+
+# Start the application
+CMD ["npm", "start"]
