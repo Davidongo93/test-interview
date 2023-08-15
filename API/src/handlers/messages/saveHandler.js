@@ -1,9 +1,10 @@
-const { saveMessage } = require('../../controllers/messages/saveController');//NIY
+const saveMessage  = require('../../controllers/messages/saveController');
 const saveMessagesHandler = async (req, res) => {
+
   try {
 
-    const { content } = req.body;
-
+    const  content = req.body.message;
+   
 
     const savedMessage = await saveMessage(content);
 
