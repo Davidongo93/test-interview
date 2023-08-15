@@ -1,15 +1,14 @@
-const { getMessage } = require('../../controllers/messages/getController'); // Importa el controlador adecuado
+const getController  = require('../../controllers/messages/getController');
 
 const getMessageHandler = async (req, res) => {
   try {
-   
-    const response = await getMessage();
+    const response = await getController();
 
-   
+   console.log("handler",response);
 
     res.status(200).json(response);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(420).json({ error: error.message });
   }
 };
 
