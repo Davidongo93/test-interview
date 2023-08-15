@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './index.css';
-import MessagesTable from '../src/components/';
+import MessagesTable from '../src/components/MessagesTable';
 
 function App() {
     const [quote, setQuote] = useState(null);
     const [saved, setSaved] = useState(false);
-    const [messages, setMessages] = useState([]); 
+    const [messages, setMessages] = useState([]);
+    const [showHistory, setShowHistory] = useState(false);
+    const [messagesLoaded, setMessagesLoaded] = useState(false);
 
     const fetchRandomQuote = () => {
         axios.get('http://localhost:3001/messages')
@@ -37,15 +39,18 @@ function App() {
         }
     };
 
-    useEffect(() => {
-        axios.get('http://localhost:3001/messages/all')
-            .then(response => {
-                setMessages(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching messages:', error);
-            });
-    }, []);
+    const loadMessages = () => {
+        if (!messagesLoaded) {
+            axios.get('http://localhost:3001/messages/all')
+                .then(response => {
+                    setMessages(response.data);
+                    setMessagesLoaded(true);
+                })
+                .catch(error => {
+                    console.error('Error fetching messages:', error);
+                });
+        }
+    };
 
     return (
         <div className="bg-gray-900 h-screen flex flex-col justify-center items-center text-white">
@@ -79,7 +84,17 @@ function App() {
                 </button>
             </div>
 
-            <MessagesTable messages={messages} />
+            <button
+                className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded mt-4"
+                onClick={() => {
+                    setShowHistory(!showHistory);
+                    loadMessages();
+                }}
+            >
+                {showHistory ? 'Hide History' : 'Show History'}
+            </button>
+
+            {showHistory && <MessagesTable messages={messages} />}
         </div>
     );
 }
